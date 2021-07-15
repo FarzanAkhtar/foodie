@@ -1,42 +1,49 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, TextInput } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
-const SearchBar = () => {
-    const [query, setQuery] = useState('');
-    return(
-        <View style={styles.background}>
-            <Ionicons name='ios-search-outline' style={styles.icon} size={35}/>
-            <TextInput 
-                style={styles.textInput}
-                autoCapitalize='none'
-                autoCorrect={false}
-                input={query}
-                onChangeText={ (input) => {setQuery(input)}}
-            />
-        </View>
-    )
-}
+const SearchBar = ({ term, onChangeTerm, onEndTerm }) => {
+  return (
+    <View style={styles.background}>
+      <Feather name="search" style={styles.icon} />
+      <TextInput
+        style={styles.textInput}
+        autoCapitalize="none"
+        autoCorrect={false}
+        placeholder="Search"
+        input={term}
+        onChangeText={(newTerm) => {
+          onChangeTerm(newTerm);
+        }}
+        onEndEditing={() => {
+          onEndTerm();
+        }}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
-    background: {
-        backgroundColor: 'gainsboro',
-        height: 50,
-        borderRadius: 10,
-        margin: 15,
-        flexDirection: 'row'
-    },
-    textInput: {
-        height: 50,
-        flex: 1,
-        fontSize: 20,
-        marginRight: 15,
-        left: 10
-    },
-    icon: {
-        alignSelf: 'center',
-        left: 5
-    }
+  background: {
+    backgroundColor: 'gainsboro',
+    height: 50,
+    borderRadius: 10,
+    marginHorizontal: 15,
+    marginVertical: 10,
+    flexDirection: 'row'
+  },
+  textInput: {
+    height: 50,
+    flex: 1,
+    fontSize: 20,
+    marginRight: 15
+  },
+  icon: {
+    alignSelf: 'center',
+    marginHorizontal: 15,
+    fontSize: 35,
+    color: 'black'
+  }
 });
 
 export default SearchBar;
